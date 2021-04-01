@@ -80,6 +80,7 @@ model.load_weights('cnnFruitTry2.h5')
 
 
 directory = "Data02/test"
+# this translates images to an array and then saves those arrays off into storage for later use
 # test_images, test_labels = images_to_array(directory, 112)
 # numpy.save("test_img.npy", test_images)
 # numpy.save("test_labels.npy", test_labels)

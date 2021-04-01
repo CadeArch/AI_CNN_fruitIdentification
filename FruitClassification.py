@@ -86,6 +86,5 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 print("done fitting")
 
-model.save_weights('cnnFruitTry2.h5')
+model.save_weights('cnnFruitTry3.h5')
 print("DONE")
-#epocs was 6 does pretty good on the first one
