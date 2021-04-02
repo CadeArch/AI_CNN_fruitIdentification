@@ -1,0 +1,9 @@
+112 image size
+6 epochs
+train_it.samples/train_it.batch_size 
+28 steps per epoch 
+28 validation steps 
+batch size 32
+
+END:
+loss: 0.0751 - acc: 0.9746 - val_loss: 0.0205 - val_acc: 0.9945
