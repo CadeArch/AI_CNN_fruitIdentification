@@ -1,7 +1,6 @@
 from tensorflow import keras
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import pandas as pd
 import matplotlib.pyplot as plt
 
 ## DONE BY MARIEM ##
@@ -49,7 +48,6 @@ train_it = datagen.flow_from_directory(directory + "/train",
 
 # load and iterate test dataset
 test_it = datagen.flow_from_directory(directory + "/test",
-                                      # classes=["fresh", "freeze", "rotten"],
                                       target_size=(112,112),
                                       color_mode='rgb',
                                       class_mode="categorical",
@@ -58,9 +56,9 @@ test_it = datagen.flow_from_directory(directory + "/test",
 
 history = model.fit(train_it,
                     validation_data=test_it,
-                    steps_per_epoch=10,
-                    validation_steps=10,
-                    epochs=200)
+                    steps_per_epoch=train_it.samples/train_it.batch_size,
+                    validation_steps=test_it.samples/test_it.batch_size,
+                    epochs=6)
 
 # list all data in history
 print(history.history.keys())

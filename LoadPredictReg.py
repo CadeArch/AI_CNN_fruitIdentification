@@ -76,7 +76,7 @@ outputs = keras.layers.Dense(6, activation = 'softmax')(x)
 model = keras.Model(inputs, outputs)
 
 # Load the model from disk later using:
-model.load_weights('cnnFruitTry2.h5')
+model.load_weights('ResultsReg/cnnFruitTry2.h5')
 
 
 directory = "Data02/test"
@@ -92,6 +92,7 @@ test_labels = numpy.load("test_labels.npy")
 # rand = False
 # showRandImages(img_folder, rand)
 
+# try 2 does better than try 1 in range 500 to 505
 def predict(show=False):
 
     # this will show the images being predicted
@@ -99,21 +100,23 @@ def predict(show=False):
         for y in test_images[500:505]:
             img = array_to_img(y)
             img.show()
+
     print("Predictions: ", end="")
 
     # index into the test images array to choose which images to predict
     predictions = model.predict(test_images[500:505])
-
+    arrayPred = []
     for x in predictions:
         biggest = max(x)
         counter = 0
         for highest in x:
             if biggest == highest:
-                print("image predicted: " + str(counter))
+                #print("image predicted: " + str(counter))
+                arrayPred.append(counter)
                 break
             else:
                 counter += 1
-
+    print(arrayPred)
 
     print("Actual: ", end="")
     print()
