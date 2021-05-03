@@ -1,0 +1,9 @@
+*.idea
+Data02
+Data03
+test_img.npy
+test_img_fine_All.npy
+test_img_fine_banana.npy
+test_labels.npy
+test_labels_fine_All.npy
+test_labels_fine_banana.npy
