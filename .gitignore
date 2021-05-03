@@ -7,3 +7,5 @@ test_img_fine_banana.npy
 test_labels.npy
 test_labels_fine_All.npy
 test_labels_fine_banana.npy
+ResultsFine/cnnAppleFine.h5
+ResultsFine/cnnBananaFine.h5
