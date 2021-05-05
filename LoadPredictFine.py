@@ -5,6 +5,7 @@ import numpy
 import os
 from keras.preprocessing.image import array_to_img
 
+# function to put the images of the database into an array
 def images_to_array(dataset_dir, image_size):
     dataset_array = []
     dataset_labels = []
@@ -34,9 +35,10 @@ def images_to_array(dataset_dir, image_size):
     dataset_labels = numpy.array(dataset_labels)
     return dataset_array, dataset_labels
 
+# using image sizes of 112 by 112
 base_model = keras.applications.VGG16(
     weights="imagenet",
-    input_shape=(224, 224, 3),
+    input_shape=(112, 112, 3),
     include_top=False)
 
 # Freeze base model
@@ -52,8 +54,8 @@ x = base_model(inputs, training=False)
 x = Flatten()(x)
 
 # Add final dense layer
-# there are 3 output layers freeze fresh and rotten
-outputs = keras.layers.Dense(3, activation = 'softmax')(x)
+# there are 9 output layers freeze fresh and rotten for each fruit
+outputs = keras.layers.Dense(9, activation = 'softmax')(x)
 
 # Combine inputs and outputs to create model
 model = keras.Model(inputs, outputs)
@@ -61,18 +63,28 @@ model = keras.Model(inputs, outputs)
 # Load the model from disk later using:
 model.load_weights('ResultsFine/cnnBananaFine.h5')
 
-
+# directories i had for tweaking the three seperate models
 appleDir = "Data03/test/apple"
 orangeDir = "Data03/test/orange"
 bananaDir = "Data03/test/banana"
-directory = appleDir
-# this translates images to an array and then saves those arrays off into storage for later use
-# test_images, test_labels = images_to_array(directory, 224)
-# numpy.save("test_img_fine.npy", test_images)
-# numpy.save("test_labels_fine.npy", test_labels)
-test_images = numpy.load("test_img_fine_banana.npy")
-test_labels = numpy.load("test_labels_fine_banana.npy")
 
+# tweaked directory to host all all 9 categories
+combinedDir = "Data03/test"
+
+# directory in use
+directory = combinedDir
+
+# this translates images to an array and then saves those arrays off into storage for later use
+
+test_images, test_labels = images_to_array(directory, 112)
+numpy.save("test_img_fine.npy", test_images)
+numpy.save("test_labels_fine.npy", test_labels)
+
+# to load in previously created numpy files
+# test_images = numpy.load("test_img_fine_banana.npy")
+# test_labels = numpy.load("test_labels_fine_banana.npy")
+
+# function to predict
 def predict(beg, end, show=False, random=False):
 
     if random:
@@ -151,11 +163,13 @@ def predict(beg, end, show=False, random=False):
         classLabels = ["freeze b", "fresh b", "rotten b"]
         print(classLabels)
 
+# parameters
 beg = 0
 end = 5
 showImages = True
 random = False
 
+# predict!
 predict(beg, end, showImages, random)
 
 """

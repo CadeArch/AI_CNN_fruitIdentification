@@ -5,9 +5,12 @@ import matplotlib.pyplot as plt
 
 ## DONE BY MARIEM ##
 
+sizeOfImage = 112
+numOfClassifications = 9
+
 base_model = keras.applications.VGG16(
     weights="imagenet",
-    input_shape=(224, 224, 3),
+    input_shape=(sizeOfImage, sizeOfImage, 3),
     include_top=False)
 
 # Freeze base model
@@ -23,8 +26,8 @@ x = base_model(inputs, training=False)
 x = Flatten()(x)
 
 # Add final dense layer
-# there are 3, fresh freeze and rotten
-outputs = keras.layers.Dense(3, activation = 'softmax')(x)
+# there are 9, fresh freeze and rotten for each fruit
+outputs = keras.layers.Dense(numOfClassifications, activation = 'softmax')(x)
 
 # Combine inputs and outputs to create model
 model = keras.Model(inputs, outputs)
@@ -34,14 +37,15 @@ model.compile(loss = "categorical_crossentropy" , metrics =['acc'])
 datagen = ImageDataGenerator(rescale=1./255,)
 
 directory = "C:/Users/rasca/Documents/Homework/Spring 2021/CS 5620 Artificial Int/Project_ImageRec/FruitClassification02/Data03"
-# subclasses = ["fresh", "freeze", "rotten"]
+
 bananaSet = "/banana"
 orangeSet = "/orange"
 appleSet = "/apple"
 
+
 # load and iterate training dataset
-train_it = datagen.flow_from_directory(directory + "/train" + appleSet,
-                                       target_size=(224,224),
+train_it = datagen.flow_from_directory(directory + "/train",
+                                       target_size=(sizeOfImage,sizeOfImage),
                                        color_mode='rgb',
                                        class_mode="categorical",
                                        )
@@ -51,8 +55,8 @@ print(train_it.class_indices) # {'freshapples': 0, 'freshbanana': 1, 'freshorang
 
 
 # load and iterate test dataset
-test_it = datagen.flow_from_directory(directory + "/test" + appleSet,
-                                      target_size=(224,224),
+test_it = datagen.flow_from_directory(directory + "/test",
+                                      target_size=(sizeOfImage,sizeOfImage),
                                       color_mode='rgb',
                                       class_mode="categorical",
                                       )
@@ -61,7 +65,7 @@ history = model.fit(train_it,
               validation_data=test_it,
               steps_per_epoch=train_it.samples/train_it.batch_size,
               validation_steps=test_it.samples/test_it.batch_size,
-              epochs=6)
+              epochs=9)
 
 # list all data in history
 print(history.history.keys())
@@ -84,5 +88,5 @@ plt.show()
 print("done fitting")
 
 
-model.save_weights('cnnFruitFine.h5')
+model.save_weights('cnnFruitFine_completeModel.h5')
 print("FINISHED")
