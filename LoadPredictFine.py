@@ -4,6 +4,7 @@ from tensorflow.keras.layers import Flatten
 import numpy
 import os
 from keras.preprocessing.image import array_to_img
+from sklearn import metrics
 
 # function to put the images of the database into an array
 def images_to_array(dataset_dir, image_size):
@@ -127,8 +128,9 @@ def predict(beg, end, show=False, random=False):
         print()
         print(actual)
 
-        classLabels = ["freeze b", "fresh b", "rotten b"]
-        print(classLabels)
+        # classLabels = ["freeze b", "fresh b", "rotten b"]
+        # print(classLabels)
+        return actual, arrayPred
 
 
     else:
@@ -160,8 +162,9 @@ def predict(beg, end, show=False, random=False):
         print()
         print(test_labels[beg:end])
 
-        classLabels = ["freeze b", "fresh b", "rotten b"]
-        print(classLabels)
+        # classLabels = ["freeze b", "fresh b", "rotten b"]
+        # print(classLabels)
+        return test_labels[beg:end], arrayPred
 
 # parameters
 beg = 0
@@ -169,8 +172,16 @@ end = 5
 showImages = True
 random = False
 
-# predict!
-predict(beg, end, showImages, random)
+# predict! use these arrays to create your confusion matrix
+actualArray, predictedArray = predict(beg, end, showImages, random)
+
+# find this out when you run numpy.save on your images to array directory
+classLabelsKey = [];
+labelsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+print(metrics.confusion_matrix(actualArray, predictedArray, labels=labelsArray))
+# Printing the precision and recall, among other metrics
+print(metrics.classification_report(actualArray, predictedArray, labels=labelsArray))
 
 """
 combine together, hierarchical NN structure
