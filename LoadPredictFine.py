@@ -179,8 +179,8 @@ actualArray, predictedArray = predict(beg, end, showImages, random)
 classLabelsKey = [];
 labelsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
+#confusion matrix and stats
 print(metrics.confusion_matrix(actualArray, predictedArray, labels=labelsArray))
-# Printing the precision and recall, among other metrics
 print(metrics.classification_report(actualArray, predictedArray, labels=labelsArray))
 
 """
