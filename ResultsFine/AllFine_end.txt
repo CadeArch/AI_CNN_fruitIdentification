@@ -1,0 +1,47 @@
+112 image size
+9 epochs
+train_it.samples/train_it.batch_size = 87
+batch size 32
+
+END:
+look at graphics allFine 2
+
+Class index 0 ,  Apple_cutFreeze : 84
+Class index 1 ,  Apple_fresh : 395
+Class index 2 ,  Apple_rotten : 517
+Class index 3 ,  Banana_freeze : 82
+Class index 4 ,  Banana_fresh : 381
+Class index 5 ,  Banana_rotten : 448
+Class index 6 ,  Orange_fresh : 388
+Class index 7 ,  Orange_rotten : 329
+Class index 8 ,  Orange_washFreeze : 74
+
+{'Apple_cutFreeze': 0, 'Apple_fresh': 1, 'Apple_rotten': 2, 'Banana_freeze': 3, 
+'Banana_fresh': 4, 'Banana_rotten': 5, 'Orange_fresh': 6, 'Orange_rotten': 7, 'Orange_washFreeze': 8}
+
+CONFUSION MATRIX:
+
+[[ 76   0   8   0   0   0   0   0   0]
+ [  0 393   2   0   0   0   0   0   0]
+ [  0   5 507   0   0   0   1   4   0]
+ [  0   0   0  77   0   5   0   0   0]
+ [  0   0   0   0 381   0   0   0   0]
+ [  0   0   0   0   0 448   0   0   0]
+ [  0   0   0   0   0   0 388   0   0]
+ [  2   0   7   0   0   0   1 318   1]
+ [  0   0   0   0   0   0   2   1  71]]
+              precision    recall  f1-score   support
+
+           0       0.97      0.90      0.94        84
+           1       0.99      0.99      0.99       395
+           2       0.97      0.98      0.97       517
+           3       1.00      0.94      0.97        82
+           4       1.00      1.00      1.00       381
+           5       0.99      1.00      0.99       448
+           6       0.99      1.00      0.99       388
+           7       0.98      0.97      0.98       329
+           8       0.99      0.96      0.97        74
+
+    accuracy                           0.99      2698
+   macro avg       0.99      0.97      0.98      2698
+weighted avg       0.99      0.99      0.99      2698

@@ -9,3 +9,6 @@ test_labels_fine_All.npy
 test_labels_fine_banana.npy
 ResultsFine/cnnAppleFine.h5
 ResultsFine/cnnBananaFine.h5
+test_img_all.npy
+test_labels_all.npy
+cnnFruitFine_completeModel.h5

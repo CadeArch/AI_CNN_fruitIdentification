@@ -62,7 +62,7 @@ outputs = keras.layers.Dense(9, activation = 'softmax')(x)
 model = keras.Model(inputs, outputs)
 
 # Load the model from disk later using:
-model.load_weights('ResultsFine/cnnBananaFine.h5')
+model.load_weights('cnnFruitFine_completeModel.h5')
 
 # directories i had for tweaking the three seperate models
 appleDir = "Data03/test/apple"
@@ -78,12 +78,12 @@ directory = combinedDir
 # this translates images to an array and then saves those arrays off into storage for later use
 
 test_images, test_labels = images_to_array(directory, 112)
-numpy.save("test_img_fine.npy", test_images)
-numpy.save("test_labels_fine.npy", test_labels)
+# numpy.save("test_img_all.npy", test_images)
+# numpy.save("test_labels_all.npy", test_labels)
 
 # to load in previously created numpy files
-# test_images = numpy.load("test_img_fine_banana.npy")
-# test_labels = numpy.load("test_labels_fine_banana.npy")
+test_images = numpy.load("test_img_all.npy")
+test_labels = numpy.load("test_labels_all.npy")
 
 # function to predict
 def predict(beg, end, show=False, random=False):
@@ -169,15 +169,18 @@ def predict(beg, end, show=False, random=False):
 # parameters
 beg = 0
 end = 5
-showImages = True
+all = len(test_labels)
+showImages = False
 random = False
 
 # predict! use these arrays to create your confusion matrix
-actualArray, predictedArray = predict(beg, end, showImages, random)
+actualArray, predictedArray = predict(beg, all, showImages, random)
 
 # find this out when you run numpy.save on your images to array directory
-classLabelsKey = [];
+classLabelsKey = {'Apple_cutFreeze': 0, 'Apple_fresh': 1, 'Apple_rotten': 2, 'Banana_freeze': 3, 'Banana_fresh': 4,
+                  'Banana_rotten': 5, 'Orange_fresh': 6, 'Orange_rotten': 7, 'Orange_washFreeze': 8}
 labelsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+print(classLabelsKey)
 
 #confusion matrix and stats
 print(metrics.confusion_matrix(actualArray, predictedArray, labels=labelsArray))
